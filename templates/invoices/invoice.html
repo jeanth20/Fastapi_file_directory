@@ -1,0 +1,106 @@
+<div class="page-container">Page of</div>
+<!--
+    <div class="logo-container"><img style="height: 18px;" src="marulatree.png" /></div>
+-->
+<table class="invoice-info-container">
+<tbody>
+<tr>
+<td class="client-name" rowspan="2">{{renter_name}}</td>
+<td>Marula Trust</td>
+</tr>
+<tr>
+<td>34 Marula Street</td>
+</tr>
+<tr>
+<td>Invoice Date: <strong>{{today_date}}</strong></td>
+<td>Edenvale, 1609</td>
+</tr>
+<tr>
+<td>Invoice No: <strong>{{next_invoice_number}}</strong></td>
+<td>therontjie@gmail.com</td>
+</tr>
+</tbody>
+</table>
+<table class="line-items-container">
+<thead>
+<tr>
+<th class="heading-quantity">&nbsp;</th>
+<th class="heading-description">Description</th>
+<th class="heading-price">&nbsp;</th>
+<th class="heading-subtotal">Subtotal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&nbsp;</td>
+<td>{{item1}}</td>
+<td class="right">&nbsp;</td>
+<td class="bold">{{subtotal1}}</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>{{item2}}</td>
+<td class="right">&nbsp;</td>
+<td class="bold">{{subtotal2}}</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>{{item3}}</td>
+<td class="right">&nbsp;</td>
+<td class="bold">{{subtotal3}}</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>{{item4}}</td>
+<td class="right">&nbsp;</td>
+<td class="bold">{{subtotal4}}</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>{{item5}}</td>
+<td class="right">&nbsp;</td>
+<td class="bold">{{subtotal5}}</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>{{item6}}</td>
+<td class="right">&nbsp;</td>
+<td class="bold">{{subtotal6}}</td>
+</tr>
+</tbody>
+</table>
+
+<table class="line-items-container has-bottom-border">
+<thead>
+<tr>
+<th>Due By</th>
+<th>Total Due</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="large">{{month}}</td>
+<td class="large total">{{total}}</td>
+</tr>
+</tbody>
+</table>
+
+<table class="line-items-container has-bottom-border">
+<thead>
+<tr>
+<th>Payment Info</th>
+</tr>
+</thead>
+<tbody>
+<td class="payment-info">
+<div><strong>J D Theron</strong></div>
+<div><strong>Nedbank</strong></div>
+<div><strong>{{account_no}}</strong></div>
+<div><strong>Current Account</strong></div>
+</td>
+</tbody>
+</table>
+
+<div class="footer">
+<div class="footer-info">Jean Theron | therontjie@gmail.com | 064 681 9553 </div>
+</div>

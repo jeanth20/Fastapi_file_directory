@@ -1,0 +1,309 @@
+@app.get('/files-display/{path:path}')
+@app.get('/files-display')
+def displayfiles(path: str = ''):
+    # Get the full path of the requested directory
+    current_directory = os.getcwd()
+    print(current_directory)
+    
+    
+    full_path = os.path.join('path', path)
+    
+    if full_path == "path/":
+        full_path = "/documents"
+    print(full_path)
+    
+    
+    # Get a list of files and directories in the requested directory
+    file_list = []
+    
+    for name in os.listdir(full_path):
+        rel_path = os.path.join(path, name)
+        full_path = os.path.join('path', rel_path)
+        if os.path.isdir(full_path):
+            file_list.append({'name': name, 'relPath': rel_path, 'fIcon': 'bi bi-folder-fill', 'mTime': '', 'size': ''})
+        else:
+            file_list.append({'name': name, 'relPath': rel_path, 'fIcon': 'bi bi-file-earmark', 'mTime': os.path.getmtime(full_path), 'size': os.path.getsize(full_path)})
+
+    # Generate HTML content for displaying the file list and file contents
+    html_content = """
+    <html>
+        <body>
+            <div id='directory' class='table table-striped table-responsive'></div>
+        </body>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css'>
+        <style>
+            table {table-layout:fixed; width:100%;}
+            table td, th {word-wrap:break-word;}
+            th {text-align: left;}
+        </style>
+        <script>
+            subdirectory_path = "";
+        
+          $.ajax({
+          url: '/files/',
+          type: 'GET',
+          success: function(response) {
+              $('#directory').append(
+                  "<table>"+
+                  "<tbody>"
+              );
+
+              $.each(response, function(i, item) {
+                  num = i + 1;
+                  $('#directory').append(
+                      "<tr>"+
+                      "    <td scope='row'>"+num+"</td>"+
+                      "    <td>"+
+                      "        <a href='http://127.0.0.1:8000/files-display/"+item.relPath+"/' >"+
+                      "            <span><i class='"+item.fIcon+"' style='margin-right:0.3em'></i></span>"+
+                      "        </a>"+
+                      "    </td>"+
+                      "    <th> "+item.name+" </th>"+
+                      "    <th> "+item.mTime+" </th>"+
+                      "    <th> "+item.size+" </th>"+
+                      "</tr>"
+                  );
+              });
+
+              $('#directory').append(
+                  "    </tbody>"+
+                  "</table>"+
+                  "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css'>"+
+                  "<style>"+
+                  "    table {table-layout:fixed; width:100%;}"+
+                  "    table td, th {word-wrap:break-word;}"+
+                  "    th {text-align: left;}"+
+                  "</style>");
+            }
+          });
+      </script>
+
+      <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css'>
+
+    </html>
+    """
+    
+    return HTMLResponse(content=html_content, status_code=200)
+
+@app.get('/files-display/{path:path}')
+@app.get('/files-display')
+def displayfiles():
+    html_content = """
+    <html>
+        <body>
+            <div id='directory' class='table table-striped table-responsive'></div>
+        </body>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css'>
+        <style>
+            table {table-layout:fixed; width:100%;}
+            table td, th {word-wrap:break-word;}
+            th {text-align: left;}
+        </style>
+        <script>
+            subdirectory_path = "";
+        
+          $.ajax({
+          url: '/files/',
+          type: 'GET',
+          success: function(response) {
+              $('#directory').append(
+                  "<table>"+
+                  "<tbody>"
+              );
+
+              $.each(response, function(i, item) {
+                  num = i + 1;
+                  $('#directory').append(
+                      "<tr>"+
+                      "    <td scope='row'>"+num+"</td>"+
+                      "    <td>"+
+                      "        <a href='http://127.0.0.1:8000/files-display/"+item.relPath+"/' >"+
+                      "            <span><i class='"+item.fIcon+"' style='margin-right:0.3em'></i></span>"+
+                      "        </a>"+
+                      "    </td>"+
+                      "    <th> "+item.name+" </th>"+
+                      "    <th> "+item.mTime+" </th>"+
+                      "    <th> "+item.size+" </th>"+
+                      "</tr>"
+                  );
+              });
+
+              $('#directory').append(
+                  "    </tbody>"+
+                  "</table>"+
+                  "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css'>"+
+                  "<style>"+
+                  "    table {table-layout:fixed; width:100%;}"+
+                  "    table td, th {word-wrap:break-word;}"+
+                  "    th {text-align: left;}"+
+                  "</style>");
+            }
+          });
+      </script>
+
+      <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css'>
+
+    </html>
+    """
+    
+    return HTMLResponse(content=html_content, status_code=200)
+
+
+@app.get('/files-display/{path:path}')
+def displayfiles(path: str = ''):
+    # Get the full path of the requested directory
+    full_path = os.path.join('path', path)
+
+    # Get a list of files and directories in the requested directory
+    file_list = []
+    for name in os.listdir(full_path):
+        rel_path = os.path.join(path, name)
+        full_path = os.path.join('path', rel_path)
+        if os.path.isdir(full_path):
+            file_list.append({'name': name, 'relPath': rel_path, 'fIcon': 'bi bi-folder-fill', 'mTime': '', 'size': ''})
+        else:
+            file_list.append({'name': name, 'relPath': rel_path, 'fIcon': 'bi bi-file-earmark', 'mTime': os.path.getmtime(full_path), 'size': os.path.getsize(full_path)})
+
+    # Generate HTML content for displaying the file list and file contents
+    html_content = f"""
+    <html>
+        <head>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+            <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css'>
+            <style>
+                table {{table-layout:fixed; width:100%;}}
+                table td, th {{word-wrap:break-word;}}
+                th {{text-align: left;}}
+            </style>
+        </head>
+        <body>
+            <div id='directory' class='table table-striped table-responsive'></div>
+        </body>
+        <script>
+            $(document).ready(function() {{
+                var current_path = "{path}";
+
+                $.ajax({{
+                    url: '/files/' + current_path,
+                    type: 'GET',
+                    success: function(response) {{
+                        $('#directory').empty();
+                        $('#directory').append(
+                            "<table>"+
+                            "<tbody>"
+                        );
+
+                        if (current_path != "") {{
+                            $('#directory').append(
+                                "<tr>"+
+                                "    <td scope='row'></td>"+
+                                "    <td>"+
+                                "        <a href='http://127.0.0.1:8000/files-display/"+current_path+"/..' >"+
+                                "            <span><i class='bi bi-chevron-compact-left' style='margin-right:0.3em'></i></span>"+
+                                "        </a>"+
+                                "    </td>"+
+                                "    <th> .. </th>"+
+                                "    <th></th>"+
+                                "    <th></th>"+
+                                "</tr>"
+                            );
+                        }}
+
+                        $.each(response, function(i, item) {{
+                            num = i + 1;
+                            $('#directory').append(
+                                "<tr>"+
+                                "    <td scope='row'>"+num+"</td>"+
+                                "    <td>"+
+                                "        <a href='http://127.0.0.1:8000/files-display/"+item.relPath+"/' >"+
+                                "            <span><i class='"+item.fIcon+"' style='margin-right:0.3em'></i></span>"+
+                                "        </a>"+
+                                "    </td>"+
+                                "    <th> "+item.name
+
+
+
+
+
+
+
+
+
+
+
+
+                                @app.get("/files/{}")
+                                @app.get("/files/{reqPath:path}", response_class=HTMLResponse)
+                                async def display_files(reqPath: str, request: Request):
+                                    full_path = os.path.abspath(os.path.join( path))
+                                    print(full_path)
+                                
+                                    if not os.path.exists(full_path):
+                                        return {"message": "Path does not exist."}
+                                
+                                    if not os.path.isdir(full_path):
+                                        return {"message": "Path is not a directory."}
+                                
+                                    files = os.listdir(full_path)
+                                    files_info = []
+                                
+                                    for file in files:
+                                        file_info = {}
+                                        file_path = os.path.join(full_path, file)
+                                        file_info["name"] = file
+                                        file_info["size"] = os.path.getsize(file_path)
+                                        file_info["mtime"] = os.path.getmtime(file_path)
+                                        if os.path.isdir(file_path):
+                                            file_info["type"] = "directory"
+                                        else:
+                                            file_info["type"] = "file"
+                                        files_info.append(file_info)
+                                
+                                    parentFolder = os.path.abspath(os.path.join(full_path, os.pardir))
+                                
+                                    data = {"files": files_info, "parentFolder": parentFolder}
+                                    return templates.TemplateResponse("files.html.j2", {"request": request, "data": data})
+                                
+                                
+                                @app.get('/files')
+                                def getFiles(reqPath: str = ""):
+                                    current_directory = os.getcwd()
+                                    parentFolder = os.path.abspath(os.path.join(current_directory, os.pardir))
+                                    return templates.TemplateResponse("files.html.j2", {"request": req, "data": {"parentFolder": parentFolder}})
+                                # async def getFiles(reqPath: str = ''):
+                                #     if reqPath == '':
+                                #         current_directory = os.getcwd()
+                                #     else:
+                                #         current_directory = os.path.abspath(os.path.join('templates', reqPath))
+                                
+                                #     parentFolder = os.path.abspath(os.path.join(current_directory, os.pardir))
+                                
+                                #     files = []
+                                #     folders = []
+                                
+                                #     for filename in os.listdir(current_directory):
+                                #         filepath = os.path.join(current_directory, filename)
+                                
+                                #         if os.path.isdir(filepath):
+                                #             folders.append(filename)
+                                #         else:
+                                #             files.append(filename)
+                                
+                                #     return templates.TemplateResponse("files.html.j2", {
+                                #         "data": {
+                                #             "title": "Files",
+                                #             "parentFolder": os.path.relpath(parentFolder, 'templates'),
+                                #             "folders": folders,
+                                #             "files": files
+                                #         }
+                                #     })
+                                    

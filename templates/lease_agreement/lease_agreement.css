@@ -1,0 +1,9 @@
+ p { font-size: 24px; }
+ li { font-size: 24px; }
+
+ .centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

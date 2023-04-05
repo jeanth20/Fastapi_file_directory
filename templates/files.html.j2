@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Files</title>
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<style>
+    table {table-layout:fixed; width:100%;}
+    table td, th {word-wrap:break-word;}
+    th {text-align: left;}
+    a, a:hover, a:focus, a:active {
+        text-decoration: none;
+        color: inherit;
+   }
+</style>
+    <body>
+        <h1>Files</h1>
+        {% if parent_path %}
+        <a href="{{ url_for('display_files', path=parent_path) }}">
+        <span><i class="bi bi-folder-symlink" style="margin-right:0.3em"></i>Parent Directory</span>
+        </a>
+        {% endif %}
+        
+        {% if path %}
+        <p>
+            <a href="{{ url_for('display_files', path=parent_path) }}">
+                <span><i class="bi bi-folder-symlink" style="margin-right:0.3em">Parent Directory/</i></span>
+            </a>
+            <a href="{{ url_for('display_files', path=path) }}">
+                <span><i class="" style="margin-right:0.3em">{{ path }}/</i></span>
+            </a>
+            
+        </p>
+        {% endif %}
+        
+        <table>
+        <thead>
+            <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Size</th>
+            <th>Last Modified</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for file in files %}
+            <tr>
+            <td>
+            {% if file.type == 'directory' %}
+                <a href="/files-display/{{ path }}{{ file.name }}/">{{ file.name }}/</a>
+            {% else %}
+                <a href="/download/{{ path }}{{ file.name }}">{{ file.name }}</a>
+            {% endif %}
+            </td>
+            <td>{{ file.type }}</td>
+            <td>{{ file.size }}</td>
+            <td>{{ file.mtime }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>    
+    </body>
+</html>
